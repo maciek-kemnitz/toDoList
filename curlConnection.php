@@ -1,14 +1,14 @@
 <?php
 
 
-function getFromApi($user, $passsword)
+function getFromApi($user, $passsword, $url)
 {
 
 	$c = curl_init();
 	curl_setopt_array($c, array (
-	  CURLOPT_URL => 'https://basecamp.com/1758651/api/v1/projects.json',
+	  CURLOPT_URL => 'https://basecamp.com/1758651/api/v1/'. $url,
 	  CURLOPT_RETURNTRANSFER => true,
-	  CURLOPT_USERPWD => 'maciek.kemnitz:tiGGer987g',
+	  CURLOPT_USERPWD => $user . ':' . $passsword,
 
 	  //CURLOPT_POSTFIELDS => json_encode(array("name" => "myproject")),
 	  CURLOPT_CUSTOMREQUEST => "GET",
@@ -21,5 +21,5 @@ function getFromApi($user, $passsword)
 
 	$data = curl_exec($c);
 	$data = json_decode($data, true);
-	print_r($data);
+	return $data;
 }
